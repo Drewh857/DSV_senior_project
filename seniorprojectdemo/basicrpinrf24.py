@@ -24,15 +24,18 @@ radio.printDetails()
 radio.startListening()
  
 while(1):
-    # ackPL = [1]
+    ackPL = [1]
     while not radio.available(0):
         time.sleep(1 / 100)
     receivedMessage = []
     radio.read(receivedMessage, radio.getDynamicPayloadSize())
-    
+
     string = ""
     for n in receivedMessage:
         # Decode into standard unicode set
-        if (n &gt;= 32 and n &lt;= 126):
+        if (n >= 32 and n <= 126):
             string += chr(n)
-    if int(string)<50:print("The detected distance is "+string)
+    if not string=="":print("The detected distance is {}".format(string))
+    time.sleep(.25)
+
+    #
